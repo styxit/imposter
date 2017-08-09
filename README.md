@@ -9,10 +9,10 @@ Tool to fake GitHub wehbook events.
 ## Usage
 To spoof a pull request merge event, use:
 ```
-php spoof styxit/imposter myBrach develop
+php spoof styxit/imposter myBranch develop
 ```
 
-This will fake an event as if branch "mybranch" was merged into branch "develop", for repository "styxit/imposter".
+This will fake an event as if branch "myBranch" was merged into branch "develop", for repository "styxit/imposter".
 
 Use `php spoof --help` to get more info about the command.
 
