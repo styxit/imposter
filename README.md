@@ -7,14 +7,23 @@ Tool to fake GitHub wehbook events.
 - Adjust settings in `.env`
 
 ## Usage
+Use `php spoof --help` to get more info about the commands.
+
+### Pull request merge
 To spoof a pull request merge event, use:
 ```
-php spoof styxit/imposter myBranch develop
+php spoof merge styxit/imposter myBranch develop
 ```
 
 This will fake an event as if branch "myBranch" was merged into branch "develop", for repository "styxit/imposter".
 
-Use `php spoof --help` to get more info about the command.
+### Release published
+To spoof a "release published" event, use:
+```
+php spoof release styxit/imposter v1.0.2
+```
+
+This will fake an event as if tag "v1.0.2" has been published for repository "styxit/imposter".
 
 ## Config
 In the `.env` the following options can be specified:
