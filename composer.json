@@ -1,5 +1,5 @@
 {
-    "name": "styxit/webhook-spoof",
+    "name": "styxit/imposter",
     "description": "Fake GitHub webhooks for debugging and development.",
     "authors": [
         {
