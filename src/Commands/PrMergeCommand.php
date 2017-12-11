@@ -18,7 +18,7 @@ class PrMergeCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('PrMerge')
+        $this->setName('merge')
             ->setDescription('Fake a pull request merge event from $from into $target.')
             ->addArgument(
                 'repository',
