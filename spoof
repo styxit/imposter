@@ -4,6 +4,7 @@ require __DIR__.'/vendor/autoload.php';
 
 use josegonzalez\Dotenv\Loader;
 use Spoof\Commands\PrMergeCommand;
+use Spoof\Commands\PublishReleaseCommand;
 use Symfony\Component\Console\Application;
 
 $envLoader = (new Loader('.env'))
@@ -11,8 +12,10 @@ $envLoader = (new Loader('.env'))
     ->expect('DESTINATION_URL', 'GITHUB_SECRET')
     ->toEnv(true);
 
-(new Application('spoof', '0.0.1'))
-    ->add(new PrMergeCommand())
-    ->getApplication()
-    ->setDefaultCommand('PrMerge', true)
-    ->run();
+
+$application = new Application('spoof', '0.0.1');
+
+$application ->add(new PrMergeCommand());
+$application ->add(new PublishReleaseCommand());
+
+$application->run();
