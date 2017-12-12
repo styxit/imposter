@@ -115,7 +115,7 @@ class PrMergeCommand extends Command
     private function confirm(InputInterface $input, OutputInterface $output, $question = 'Ok?')
     {
         $helper = $this->getHelper('question');
-        $confirmQuestion = new ConfirmationQuestion($question.' [y/n]: ', false);
+        $confirmQuestion = new ConfirmationQuestion($question.' [y/N]: ', false);
 
         if (!$helper->ask($input, $output, $confirmQuestion)) {
             return false;
