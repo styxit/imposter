@@ -11,29 +11,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
-class PrMergeCommand extends Command
+class PublishReleaseCommand extends Command
 {
     /**
      * Configure this command.
      */
     protected function configure()
     {
-        $this->setName('merge')
-            ->setDescription('Fake a pull request merge event from $from into $target.')
+        $this->setName('release')
+            ->setDescription('Fake the release-published event for $tag.')
             ->addArgument(
                 'repository',
                 InputArgument::REQUIRED,
                 'Full repository name, including the owner. Example: styxit/deployments'
             )
             ->addArgument(
-                'from',
+                'tag',
                 InputArgument::REQUIRED,
-                'The branch name that is merged into the target'
-            )
-            ->addArgument(
-                'target',
-                InputArgument::REQUIRED,
-                'The branch name that is the target of the pr merge event'
+                'The tag to fake. Example: v1.0.2'
             );
     }
 
@@ -51,14 +46,13 @@ class PrMergeCommand extends Command
 
         list($repositoryOwner, $repositoryName) = explode('/', $input->getArgument('repository'));
 
-        $output->writeLn('<info>About to spoof a pull request merge event with the following settings:</info>');
+        $output->writeLn('<info>About to spoof a "release published" event with the following settings:</info>');
         $output->writeLn('');
         $output->writeLn(sprintf('Repository: <comment>%s/%s</comment>', $repositoryOwner, $repositoryName));
         $output->writeln(
             sprintf(
-                'Merge <comment>%s</comment> into <comment>%s</comment>.',
-                $input->getArgument('from'),
-                $input->getArgument('target')
+                'Release tag: <comment>%s</comment>.',
+                $input->getArgument('tag')
             )
         );
         $output->writeLn('');
@@ -71,13 +65,12 @@ class PrMergeCommand extends Command
         }
 
         // Construct payload from template.
-        $payload = (new Parser('pr-merge'))->parse(
+        $payload = (new Parser('release-published'))->parse(
             [
                 'repoName' => $repositoryName,
                 'repoOwner' => $repositoryOwner,
                 'repoFullName' => $repositoryOwner.'/'.$repositoryName,
-                'from' => $input->getArgument('from'),
-                'target' => $input->getArgument('target'),
+                'tagName' => $input->getArgument('tag'),
             ]
         );
 
@@ -95,7 +88,7 @@ class PrMergeCommand extends Command
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'X-Hub-Signature' => 'sha1='.$signature,
-                    'X-GitHub-Event' => 'merge_pull_request',
+                    'X-GitHub-Event' => 'release',
                 ]
             ]
         );

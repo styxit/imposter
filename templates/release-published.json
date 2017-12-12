@@ -1,0 +1,13 @@
+{
+    "action": "published",
+    "repository": {
+        "name": "%s",
+        "owner": {
+            "login": "%s"
+        },
+        "ssh_url": "http://github.com/%s"
+    },
+    "release": {
+        "tag_name": "%s"
+    }
+}
