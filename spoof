@@ -3,7 +3,7 @@
 require __DIR__.'/vendor/autoload.php';
 
 use josegonzalez\Dotenv\Loader;
-use Spoof\Commands\DeployLatestCommand;
+use Spoof\Commands\MergeLatestTagCommand;
 use Spoof\Commands\PrMergeCommand;
 use Spoof\Commands\PublishReleaseCommand;
 use Symfony\Component\Console\Application;
@@ -17,6 +17,6 @@ $application = new Application('spoof', '0.0.1');
 
 $application->add(new PrMergeCommand());
 $application->add(new PublishReleaseCommand());
-$application->add(new DeployLatestCommand());
+$application->add(new MergeLatestTagCommand());
 
 $application->run();

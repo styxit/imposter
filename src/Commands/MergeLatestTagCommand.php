@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DeployLatestCommand extends PrMergeCommand
+class MergeLatestTagCommand extends PrMergeCommand
 {
     /**
      * Configure this command.
@@ -58,7 +58,7 @@ class DeployLatestCommand extends PrMergeCommand
 
         $release = json_decode($response->getBody(), true);
 
-        return $this->deploy($input, $output, [
+        return $this->call($input, $output, [
             'owner' => $repositoryOwner,
             'name' => $repositoryName,
             'from' => $release['tag_name'],

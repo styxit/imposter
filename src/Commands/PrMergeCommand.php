@@ -51,7 +51,7 @@ class PrMergeCommand extends Command
 
         list($repositoryOwner, $repositoryName) = explode('/', $input->getArgument('repository'));
 
-        return $this->deploy($input, $output, [
+        return $this->call($input, $output, [
             'owner' => $repositoryOwner,
             'name' => $repositoryName,
             'from' => $input->getArgument('from'),
@@ -60,7 +60,7 @@ class PrMergeCommand extends Command
     }
 
     /**
-     * Call the deploy event.
+     * Call the destination with the merge event.
      *
      * @param InputInterface  $input    The input class.
      * @param OutputInterface $output   The output class.
@@ -68,7 +68,7 @@ class PrMergeCommand extends Command
      *
      * @return int The exit code.
      */
-    protected function deploy(InputInterface $input, OutputInterface $output, array $settings): int
+    protected function call(InputInterface $input, OutputInterface $output, array $settings): int
     {
         $output->writeLn('<info>About to spoof a pull request merge event with the following settings:</info>');
         $output->writeLn('');
