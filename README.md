@@ -17,6 +17,14 @@ php spoof merge styxit/imposter myBranch develop
 
 This will fake an event as if branch "myBranch" was merged into branch "develop", for repository "styxit/imposter".
 
+### Merge event based on the latest tag
+To spoof a pull requeste merge event based on the latest tag, use:
+```
+php spoof latest styxit/imposter develop
+```
+
+This will fake an event as if the latest tag (for example v1.1.0) was merged into branch "develop", for repository "styxit/imposter".
+
 ### Release published
 To spoof a "release published" event, use:
 ```
@@ -24,14 +32,6 @@ php spoof release styxit/imposter v1.0.2
 ```
 
 This will fake an event as if tag "v1.0.2" has been published for repository "styxit/imposter".
-
-### Deploy latest release
-To deploy the latest releaes of a given repository, use:
-```
-php spoof latest styxit/imposter develop
-```
-
-This will fake an event as if the latest tag (for example v1.1.0) was merged into branch "develop", for repository "styxit/imposter".
 
 ## Config
 In the `.env` the following options can be specified:
