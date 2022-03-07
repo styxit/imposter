@@ -12,7 +12,6 @@ $envLoader = (new Loader('.env'))
     ->expect('DESTINATION_URL', 'GITHUB_SECRET')
     ->toEnv(true);
 
-
 $application = new Application('spoof', '0.0.1');
 
 $application->add(new PrMergeCommand());
