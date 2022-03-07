@@ -5,7 +5,7 @@ namespace Spoof\Template;
 class Parser
 {
     /**
-     * @var string The template string that will be used as the $format.
+     * @var string The template string that will be used as the.
      */
     private $template;
 
@@ -16,7 +16,7 @@ class Parser
      *
      * @throws \Exception When the template file is not found.
      */
-    public function __construct($templateName)
+    public function __construct(string $templateName)
     {
         $filePath = __DIR__.'/../../templates/'.$templateName.'.json';
 
@@ -33,13 +33,14 @@ class Parser
      *
      * @return string Parsed template.
      */
-    public function parse($options)
+    public function parse(array $options): string
     {
         /*
          * Create array with all options to pass to sprintf() method.
          * Start with all the replacement values.
          */
         $sprinfOptions = array_values($options);
+
         // Prepend the template string (that contains the %s and %d parts).
         array_unshift($sprinfOptions, $this->template);
 

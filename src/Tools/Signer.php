@@ -5,10 +5,13 @@ namespace Spoof\Tools;
 class Signer
 {
     /**
-     * @var The secret key to use when signing.
+     * @var string The secret key to use when signing.
      */
     private $secret;
 
+    /**
+     * Signer constructor.
+     */
     public function __construct()
     {
         $this->secret = $_ENV['GITHUB_SECRET'];
@@ -21,7 +24,7 @@ class Signer
      *
      * @return string The sha1 signature for the input, signed with the secret.
      */
-    public function sign($input)
+    public function sign(string $input): string
     {
         return hash_hmac('sha1', $input, $this->secret);
     }
