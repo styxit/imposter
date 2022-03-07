@@ -1,10 +1,8 @@
 ---
-name-template: 'v$NEXT_MINOR_VERSION'
-tag-template: 'v$NEXT_MINOR_VERSION'
-change-template: '- [#$NUMBER] $TITLE [@$AUTHOR](https://github.com/$AUTHOR)'
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+change-template: "- #$NUMBER $TITLE @$AUTHOR"
 sort-direction: ascending
-filter-by-commitish: true
-commitish: master
 
 exclude-labels:
   - 'skip-changelog'
