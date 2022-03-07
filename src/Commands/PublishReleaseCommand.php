@@ -58,7 +58,7 @@ class PublishReleaseCommand extends Command
         $output->writeLn('');
 
         // Ask confirmation.
-        if (!$this->confirm($input, $output, 'Is this correct?')) {
+        if ($input->isInteractive() && !$this->confirm($input, $output, 'Is this correct?')) {
             $output->writeLn('User did not confirm. Quit.');
 
             return 1;
