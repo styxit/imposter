@@ -51,16 +51,29 @@ class PrMergeCommand extends Command
 
         list($repositoryOwner, $repositoryName) = explode('/', $input->getArgument('repository'));
 
+        return $this->deploy($input, $output, [
+            'owner' => $repositoryOwner,
+            'name' => $repositoryName,
+            'from' => $input->getArgument('from'),
+            'target' => $input->getArgument('target'),
+        ]);
+    }
+
+    /**
+     * Call the deploy event.
+     *
+     * @param InputInterface  $input    The input class.
+     * @param OutputInterface $output   The output class.
+     * @param array           $settings The settings to include in the call.
+     *
+     * @return int The exit code.
+     */
+    protected function deploy(InputInterface $input, OutputInterface $output, array $settings): int
+    {
         $output->writeLn('<info>About to spoof a pull request merge event with the following settings:</info>');
         $output->writeLn('');
-        $output->writeLn(sprintf('Repository: <comment>%s/%s</comment>', $repositoryOwner, $repositoryName));
-        $output->writeln(
-            sprintf(
-                'Merge <comment>%s</comment> into <comment>%s</comment>.',
-                $input->getArgument('from'),
-                $input->getArgument('target')
-            )
-        );
+        $output->writeLn(sprintf('Repository: <comment>%s/%s</comment>', $settings['owner'], $settings['name']));
+        $output->writeln(sprintf('Merge <comment>%s</comment> into <comment>%s</comment>.', $settings['from'], $settings['target']));
         $output->writeLn('');
 
         // Ask confirmation.
@@ -73,11 +86,11 @@ class PrMergeCommand extends Command
         // Construct payload from template.
         $payload = (new Parser('pr-merge'))->parse(
             [
-                'repoName' => $repositoryName,
-                'repoOwner' => $repositoryOwner,
-                'repoFullName' => $repositoryOwner.'/'.$repositoryName,
-                'from' => $input->getArgument('from'),
-                'target' => $input->getArgument('target'),
+                'repoName' => $settings['name'],
+                'repoOwner' => $settings['owner'],
+                'repoFullName' => $settings['owner'].'/'.$settings['name'],
+                'from' => $settings['from'],
+                'target' => $settings['target'],
             ]
         );
 

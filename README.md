@@ -25,6 +25,14 @@ php spoof release styxit/imposter v1.0.2
 
 This will fake an event as if tag "v1.0.2" has been published for repository "styxit/imposter".
 
+### Deploy latest release
+To deploy the latest releaes of a given repository, use:
+```
+php spoof latest styxit/imposter develop
+```
+
+This will fake an event as if the latest tag (for example v1.1.0) was merged into branch "develop", for repository "styxit/imposter".
+
 ## Config
 In the `.env` the following options can be specified:
 
@@ -33,3 +41,6 @@ This is the url to which the event is POST-ed. Usually your own webhook.
 
 ##### GITHUB_SECRET
 The secret string you provided when setting up the webhook at GitHub. This used to sign your request.
+
+##### GITHUB_TOKEN
+The auth token used to fetch the latest release for a given repository from the Github API.

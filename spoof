@@ -3,18 +3,20 @@
 require __DIR__.'/vendor/autoload.php';
 
 use josegonzalez\Dotenv\Loader;
+use Spoof\Commands\DeployLatestCommand;
 use Spoof\Commands\PrMergeCommand;
 use Spoof\Commands\PublishReleaseCommand;
 use Symfony\Component\Console\Application;
 
 $envLoader = (new Loader('.env'))
     ->parse()
-    ->expect('DESTINATION_URL', 'GITHUB_SECRET')
+    ->expect('DESTINATION_URL', 'GITHUB_SECRET', 'GITHUB_TOKEN')
     ->toEnv(true);
 
 $application = new Application('spoof', '0.0.1');
 
 $application->add(new PrMergeCommand());
 $application->add(new PublishReleaseCommand());
+$application->add(new DeployLatestCommand());
 
 $application->run();
