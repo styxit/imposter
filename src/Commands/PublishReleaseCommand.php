@@ -5,8 +5,8 @@ namespace Spoof\Commands;
 use GuzzleHttp\Client;
 use Spoof\Template\Parser;
 use Spoof\Tools\Signer;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -16,7 +16,7 @@ class PublishReleaseCommand extends Command
     /**
      * Configure this command.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('release')
             ->setDescription('Fake the release-published event for $tag.')
@@ -40,7 +40,7 @@ class PublishReleaseCommand extends Command
      *
      * @return int The exit code.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeLn('');
 
@@ -58,10 +58,10 @@ class PublishReleaseCommand extends Command
         $output->writeLn('');
 
         // Ask confirmation.
-        if (!$this->confirm($input, $output, 'Is this correct?')) {
+        if ($input->isInteractive() && !$this->confirm($input, $output, 'Is this correct?')) {
             $output->writeLn('User did not confirm. Quit.');
 
-            return;
+            return 1;
         }
 
         // Construct payload from template.
@@ -89,11 +89,13 @@ class PublishReleaseCommand extends Command
                     'Content-Type' => 'application/json',
                     'X-Hub-Signature' => 'sha1='.$signature,
                     'X-GitHub-Event' => 'release',
-                ]
+                ],
             ]
         );
 
         $output->writeLn('Done.');
+
+        return 0;
     }
 
     /**
@@ -105,7 +107,7 @@ class PublishReleaseCommand extends Command
      *
      * @return bool True when the user entered 'y', False otherwise.
      */
-    private function confirm(InputInterface $input, OutputInterface $output, $question = 'Ok?')
+    private function confirm(InputInterface $input, OutputInterface $output, string $question = 'Ok?'): bool
     {
         $helper = $this->getHelper('question');
         $confirmQuestion = new ConfirmationQuestion($question.' [y/N]: ', false);

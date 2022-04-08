@@ -7,7 +7,7 @@ use Spoof\Commands\PrMergeCommand;
 use Spoof\Commands\PublishReleaseCommand;
 use Symfony\Component\Console\Application;
 
-$envLoader = (new Loader('.env'))
+$envLoader = (new Loader(__DIR__.'/.env'))
     ->parse()
     ->expect('DESTINATION_URL', 'GITHUB_SECRET')
     ->toEnv(true);

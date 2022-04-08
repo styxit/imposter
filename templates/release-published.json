@@ -8,6 +8,7 @@
         "ssh_url": "http://github.com/%s"
     },
     "release": {
-        "tag_name": "%s"
+        "tag_name": "%s",
+        "prerelease": false
     }
 }
