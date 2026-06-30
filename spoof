@@ -15,7 +15,7 @@ $envLoader = (new Loader(__DIR__.'/.env'))
 
 $application = new Application('spoof', '0.0.1');
 
-$application->add(new PrMergeCommand());
-$application->add(new PublishReleaseCommand());
+$application->addCommand(new PrMergeCommand());
+$application->addCommand(new PublishReleaseCommand());
 
 $application->run();
